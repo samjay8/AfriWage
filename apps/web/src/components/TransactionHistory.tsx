@@ -80,6 +80,7 @@ export function TransactionHistory({ publicKey, className }: TransactionHistoryP
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-xl font-semibold text-white">Transaction History</h2>
         <button
+          type="button"
           onClick={() => loadTransactions(true)}
           disabled={refreshing}
           className="flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs text-slate-400 transition-colors hover:bg-white/5 hover:text-white disabled:opacity-50"

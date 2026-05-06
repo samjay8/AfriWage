@@ -70,6 +70,7 @@ export function WorkerCard({ worker, onPay, className }: WorkerCardProps) {
           {truncatePublicKey(worker.publicKey, 8)}
         </p>
         <button
+          type="button"
           onClick={handleCopy}
           className="text-slate-500 transition-colors hover:text-slate-300"
           aria-label={copied ? 'Copied!' : 'Copy wallet address'}
@@ -101,6 +102,7 @@ export function WorkerCard({ worker, onPay, className }: WorkerCardProps) {
       {/* Pay button */}
       {onPay && (
         <button
+          type="button"
           onClick={() => onPay(worker)}
           className="w-full rounded-xl bg-brand-gradient py-2.5 text-sm font-semibold text-white opacity-0 transition-all duration-200 group-hover:opacity-100 hover:shadow-brand-glow"
           aria-label={`Send payment to ${worker.name}`}

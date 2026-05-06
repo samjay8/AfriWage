@@ -114,6 +114,7 @@ export function SendPaymentForm({ senderSecret, className }: SendPaymentFormProp
               View on Explorer
             </a>
             <button
+              type="button"
               onClick={handleReset}
               className="flex-1 rounded-xl bg-brand-gradient py-2.5 text-sm font-semibold text-white transition-all hover:opacity-90"
             >

@@ -128,6 +128,7 @@ export default function WorkerPage() {
                   className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder-slate-600 outline-none focus:border-brand-500/50 focus:ring-2 focus:ring-brand-500/30"
                 />
                 <button
+                  type="button"
                   onClick={handleLookup}
                   disabled={lookupKey.trim().length < 56}
                   className="rounded-xl bg-brand-gradient px-5 py-3 text-sm font-semibold text-white disabled:opacity-40"
@@ -163,6 +164,7 @@ export default function WorkerPage() {
                     <span className="text-xs font-medium text-green-400">On-chain verified</span>
                   </div>
                   <button
+                    type="button"
                     onClick={() => {
                       setViewingKey(null);
                       setLookupKey('');

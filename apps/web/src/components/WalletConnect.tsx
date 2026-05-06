@@ -82,6 +82,7 @@ export function WalletConnect({ onConnect, onDisconnect, className }: WalletConn
     return (
       <div className={cn('relative', className)}>
         <button
+          type="button"
           onClick={() => setShowDropdown((prev) => !prev)}
           className="flex items-center gap-2 rounded-xl border border-green-500/30 bg-green-500/10 px-4 py-2 text-sm font-medium text-green-400 transition-all hover:border-green-500/50 hover:bg-green-500/20"
           aria-label="Wallet connected — click to manage"
@@ -102,6 +103,7 @@ export function WalletConnect({ onConnect, onDisconnect, className }: WalletConn
 
             <div className="flex gap-2">
               <button
+                type="button"
                 onClick={handleCopy}
                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-white/5 px-3 py-2 text-xs text-slate-400 transition-colors hover:bg-white/10 hover:text-white"
                 aria-label={copied ? 'Copied!' : 'Copy address'}
@@ -126,6 +128,7 @@ export function WalletConnect({ onConnect, onDisconnect, className }: WalletConn
               </a>
 
               <button
+                type="button"
                 onClick={handleDisconnect}
                 className="flex flex-1 items-center justify-center gap-2 rounded-lg bg-red-500/10 px-3 py-2 text-xs text-red-400 transition-colors hover:bg-red-500/20 hover:text-red-300"
                 aria-label="Disconnect wallet"
@@ -152,6 +155,7 @@ export function WalletConnect({ onConnect, onDisconnect, className }: WalletConn
   return (
     <div className={cn('flex flex-col items-end gap-2', className)}>
       <button
+        type="button"
         onClick={handleConnect}
         disabled={status === 'connecting'}
         className={cn(
