@@ -1,15 +1,15 @@
 ```
-██████╗ ███████╗███╗   ███╗██╗████████╗ ██████╗██╗  ██╗ █████╗ ██╗███╗   ██╗
-██╔══██╗██╔════╝████╗ ████║██║╚══██╔══╝██╔════╝██║  ██║██╔══██╗██║████╗  ██║
-██████╔╝█████╗  ██╔████╔██║██║   ██║   ██║     ███████║███████║██║██╔██╗ ██║
-██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║   ██║     ██╔══██║██╔══██║██║██║╚██╗██║
-██║  ██║███████╗██║ ╚═╝ ██║██║   ██║   ╚██████╗██║  ██║██║  ██║██║██║ ╚████║
-╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝   ╚═╝    ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+ █████╗ ███████╗██████╗ ██╗██╗    ██╗ █████╗  ██████╗ ███████╗
+██╔══██╗██╔════╝██╔══██╗██║██║    ██║██╔══██╗██╔════╝ ██╔════╝
+███████║█████╗  ██████╔╝██║██║ █╗ ██║███████║██║  ███╗█████╗  
+██╔══██║██╔══╝  ██╔══██╗██║██║███╗██║██╔══██║██║   ██║██╔══╝  
+██║  ██║██║     ██║  ██║██║╚███╔███╔╝██║  ██║╚██████╔╝███████╗
+╚═╝  ╚═╝╚═╝     ╚═╝  ╚═╝╚═╝ ╚══╝╚══╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
 ```
 
 **Instant, borderless payroll for African gig workers — powered by Stellar & USDC**
 
-[![CI](https://github.com/RemitChain/RemitChain/actions/workflows/ci.yml/badge.svg)](https://github.com/RemitChain/RemitChain/actions/workflows/ci.yml)
+[![CI](https://github.com/AfriWage/AfriWage/actions/workflows/ci.yml/badge.svg)](https://github.com/AfriWage/AfriWage/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](./LICENSE)
 [![Built on Stellar](https://img.shields.io/badge/Built%20on-Stellar-blueviolet?logo=stellar)](https://stellar.org)
 [![Deploy on Vercel](https://img.shields.io/badge/Deploy%20on-Vercel-black?logo=vercel)](https://vercel.com)
@@ -55,7 +55,7 @@ Over 70 million gig workers across Africa are paid through legacy wire transfers
 - ✅ **Worker payment passport** — public proof-of-payment page for any Stellar address
 - ✅ **Employer dashboard** — send payments, view balance, manage payroll
 - ✅ **8+ African countries** — off-ramp support for NGN, GHS, KES, ZAR, TZS, UGX, XOF, XAF
-- ✅ **@remitchain/sdk** — standalone Stellar helper package for the community
+- ✅ **@AfriWage/sdk** — standalone Stellar helper package for the community
 
 ---
 
@@ -97,7 +97,7 @@ Afriwage/
 │               ├── stellar.ts        ← Stellar SDK helpers
 │               └── freighter.ts      ← Freighter wallet integration
 ├── packages/
-│   └── sdk/                          ← @remitchain/sdk
+│   └── sdk/                          ← @AfriWage/sdk
 │       └── src/
 │           ├── payment.ts            ← sendPayment, getBalance, getHistory
 │           ├── account.ts            ← createKeypair, fundTestnet
