@@ -85,13 +85,13 @@ export async function getBalance(publicKey: string): Promise<Balance> {
 
   for (const balance of account.balances) {
     if (balance.asset_type === 'native') {
-      xlm = parseFloat(balance.balance).toFixed(7);
+      xlm = Number.parseFloat(balance.balance).toFixed(7);
     } else if (
       balance.asset_type === 'credit_alphanum4' &&
       balance.asset_code === USDC_ASSET_CODE &&
       balance.asset_issuer === USDC_ISSUER_TESTNET
     ) {
-      usdc = parseFloat(balance.balance).toFixed(2);
+      usdc = Number.parseFloat(balance.balance).toFixed(2);
     }
   }
 
@@ -130,7 +130,7 @@ export async function getTransactionHistory(publicKey: string): Promise<Transact
       if (op.type === 'payment') {
         type = 'payment';
         const payOp = op as Horizon.HorizonApi.PaymentOperationResponse;
-        amount = parseFloat(payOp.amount).toFixed(2);
+        amount = Number.parseFloat(payOp.amount).toFixed(2);
         asset =
           payOp.asset_type === 'native'
             ? 'XLM'
@@ -138,10 +138,11 @@ export async function getTransactionHistory(publicKey: string): Promise<Transact
         from = payOp.from;
         to = payOp.to;
         break;
-      } else if (op.type === 'create_account') {
+      }
+      if (op.type === 'create_account') {
         type = 'create_account';
         const createOp = op as Horizon.HorizonApi.CreateAccountOperationResponse;
-        amount = parseFloat(createOp.starting_balance).toFixed(2);
+        amount = Number.parseFloat(createOp.starting_balance).toFixed(2);
         asset = 'XLM';
         to = createOp.account;
         break;
