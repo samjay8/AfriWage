@@ -87,7 +87,7 @@ export default function SendPage() {
       const { xdr } = await buildResponse.json();
 
       // Step 2: Sign with Freighter (user approves in the extension popup)
-      const signedXdr = await signTransaction(xdr);
+      const signedXdr = await signTransaction(xdr, senderPublicKey);
 
       // Step 3: Submit the signed transaction
       const submitResponse = await fetch('/api/submit-tx', {
