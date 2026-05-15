@@ -1,16 +1,10 @@
 'use client';
 
 import { useQuery } from '@tanstack/react-query';
-import {
-  ArrowDownLeft,
-  ArrowLeftRight,
-  ArrowUpRight,
-  ChevronRight,
-  Home,
-  Users,
-} from 'lucide-react';
+import { ArrowDownLeft, ArrowLeftRight, ArrowUpRight, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 import { useCallback, useState } from 'react';
+import { DashboardShell, SurfaceCard } from '@/components/dashboard-shell';
 import { WalletConnect } from '@/components/WalletConnect';
 import type { TransactionRecord } from '@/lib/stellar';
 import { getTransactionHistory } from '@/lib/stellar';
@@ -25,9 +19,7 @@ type AssetFilter = 'all' | 'USDC' | 'XLM';
 /* ─── SKELETON ─────────────────────────────────────────── */
 
 function Skeleton({ className }: { className?: string }) {
-  return (
-    <div className={cn('animate-pulse rounded-lg bg-white/10', className)} />
-  );
+  return <div className={cn('animate-pulse rounded-lg bg-white/10', className)} />;
 }
 
 function RowSkeleton() {
@@ -60,49 +52,19 @@ export default function TransactionsPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A]">
-      {/* ── TOP NAVBAR ────────────────────────────── */}
-      <nav className="sticky top-0 z-50 h-16 border-b border-white/10 bg-[#0A0A0A]">
-        <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-6">
-          <div className="flex items-center gap-6">
-            <Link
-              href="/"
-              className="flex items-center gap-2 text-sm text-white/50 transition-colors hover:text-white"
-            >
-              <Home className="h-4 w-4" />
-              Home
-            </Link>
-            <div className="flex items-center gap-2">
-              <span className="h-2 w-2 rounded-full bg-[#14A800]" />
-              <span className="font-semibold text-white">Transactions</span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <Link
-              href="/worker"
-              className="hidden items-center gap-1.5 text-sm text-white/50 transition-colors hover:text-white sm:flex"
-            >
-              <Users className="h-4 w-4" />
-              Worker Portal
-            </Link>
-            <WalletConnect onConnect={handleConnect} onDisconnect={handleDisconnect} />
-          </div>
-        </div>
-      </nav>
-
-      {/* ── MAIN CONTENT ──────────────────────────── */}
-      <main className="mx-auto max-w-6xl px-6 py-10">
+    <DashboardShell
+      title="Transactions"
+      description="View your Stellar payment history and activity."
+      actions={<WalletConnect onConnect={handleConnect} onDisconnect={handleDisconnect} />}
+    >
+      <div className="space-y-6">
         {!publicKey ? (
-          <DisconnectedState
-            onConnect={handleConnect}
-            onDisconnect={handleDisconnect}
-          />
+          <DisconnectedState onConnect={handleConnect} onDisconnect={handleDisconnect} />
         ) : (
           <ConnectedTransactions publicKey={publicKey} />
         )}
-      </main>
-    </div>
+      </div>
+    </DashboardShell>
   );
 }
 
@@ -116,22 +78,26 @@ function DisconnectedState({
   onDisconnect: () => void;
 }) {
   return (
-    <div className="flex min-h-[60vh] flex-col items-center justify-center text-center">
-      <ArrowLeftRight className="mx-auto h-16 w-16 text-[#E5E7EB]" />
+    <SurfaceCard>
+      <div className="flex min-h-[40vh] flex-col items-center justify-center py-12 text-center">
+        <div className="rounded-full bg-[#f3ecdf] p-6">
+          <ArrowLeftRight className="h-12 w-12 text-[#8c7760]" />
+        </div>
 
-      <h2 className="mt-6 text-2xl font-bold text-white">
-        Connect your wallet to view transactions
-      </h2>
+        <h2 className="mt-6 text-2xl font-bold text-[#102033]">
+          Connect your wallet to view transactions
+        </h2>
 
-      <p className="mx-auto mt-3 max-w-sm text-[#6B7280]">
-        Your full Stellar payment history will appear here once your Freighter
-        wallet is connected.
-      </p>
+        <p className="mx-auto mt-3 max-w-sm text-[#637085]">
+          Your full Stellar payment history will appear here once your Freighter wallet is
+          connected.
+        </p>
 
-      <div className="mt-8">
-        <WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />
+        <div className="mt-8">
+          <WalletConnect onConnect={onConnect} onDisconnect={onDisconnect} />
+        </div>
       </div>
-    </div>
+    </SurfaceCard>
   );
 }
 
@@ -165,10 +131,7 @@ function ConnectedTransactions({ publicKey }: { publicKey: string }) {
   ];
 
   return (
-    <div>
-      {/* ── PAGE HEADER ───────────────────────────── */}
-      <h1 className="text-2xl font-bold text-white">Transactions</h1>
-
+    <SurfaceCard>
       {/* ── FILTER ROW ────────────────────────────── */}
       <div className="mt-6 flex flex-wrap items-center gap-3">
         {/* Direction tabs */}
@@ -181,8 +144,8 @@ function ConnectedTransactions({ publicKey }: { publicKey: string }) {
               className={cn(
                 'rounded-full px-4 py-2 text-sm font-medium transition-colors',
                 dirFilter === tab.key
-                  ? 'bg-white text-[#0A0A0A]'
-                  : 'border border-white/20 text-[#6B7280] hover:border-white/40'
+                  ? 'bg-[#1f8f55] text-white'
+                  : 'border border-[#d8cebe] bg-white text-[#637085] hover:border-[#1f8f55]'
               )}
             >
               {tab.label}
@@ -194,11 +157,11 @@ function ConnectedTransactions({ publicKey }: { publicKey: string }) {
         <select
           value={assetFilter}
           onChange={(e) => setAssetFilter(e.target.value as AssetFilter)}
-          className="ml-auto rounded-lg border border-white/20 bg-transparent px-3 py-2 text-sm text-white outline-none"
+          className="ml-auto rounded-lg border border-[#d8cebe] bg-white px-3 py-2 text-sm text-[#102033] outline-none focus:border-[#1f8f55]"
         >
-          <option value="all" className="bg-[#0A0A0A]">All assets</option>
-          <option value="USDC" className="bg-[#0A0A0A]">USDC only</option>
-          <option value="XLM" className="bg-[#0A0A0A]">XLM only</option>
+          <option value="all">All assets</option>
+          <option value="USDC">USDC only</option>
+          <option value="XLM">XLM only</option>
         </select>
       </div>
 
@@ -216,30 +179,18 @@ function ConnectedTransactions({ publicKey }: { publicKey: string }) {
           <div>
             {filtered.map((tx) => {
               const incoming = tx.to === publicKey;
-              return (
-                <TransactionRow
-                  key={tx.id}
-                  tx={tx}
-                  incoming={incoming}
-                />
-              );
+              return <TransactionRow key={tx.id} tx={tx} incoming={incoming} />;
             })}
           </div>
         )}
       </div>
-    </div>
+    </SurfaceCard>
   );
 }
 
-/* ─── TRANSACTION ROW ──────────────────────────────────── */
+/* ─── TRANSACTION ROW ────────────────────────────── */
 
-function TransactionRow({
-  tx,
-  incoming,
-}: {
-  tx: TransactionRecord;
-  incoming: boolean;
-}) {
+function TransactionRow({ tx, incoming }: { tx: TransactionRecord; incoming: boolean }) {
   const formattedDate = new Date(tx.createdAt).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -256,7 +207,7 @@ function TransactionRow({
       href={`https://stellar.expert/explorer/testnet/tx/${tx.hash}`}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex cursor-pointer items-center justify-between rounded-lg border-b border-white/10 px-2 py-4 transition-colors last:border-0 hover:bg-white/5"
+      className="flex cursor-pointer items-center justify-between rounded-lg border-b border-[#efe3d0] px-4 py-4 transition-colors last:border-0 hover:bg-[#fffaf2]"
     >
       {/* Left */}
       <div className="flex items-center gap-4">
@@ -273,10 +224,8 @@ function TransactionRow({
           )}
         </div>
         <div>
-          <p className="text-sm font-medium text-white">
-            {tx.memo || 'Payment'}
-          </p>
-          <p className="text-xs text-[#6B7280]">
+          <p className="text-sm font-semibold text-[#102033]">{tx.memo || 'Payment'}</p>
+          <p className="text-xs text-[#8c7760]">
             {formattedDate} · {formattedTime}
           </p>
         </div>
@@ -286,19 +235,16 @@ function TransactionRow({
       <div className="flex items-center gap-3">
         <div className="text-right">
           <p
-            className={cn(
-              'text-sm font-semibold',
-              incoming ? 'text-[#14A800]' : 'text-[#E24B4A]'
-            )}
+            className={cn('text-sm font-semibold', incoming ? 'text-[#14A800]' : 'text-[#E24B4A]')}
           >
             {incoming ? '+' : '-'}
             {tx.amount} {tx.asset}
           </p>
-          <p className="font-mono text-xs text-[#6B7280]">
+          <p className="font-mono text-xs text-[#8c7760]">
             {truncatePublicKey(incoming ? tx.from : tx.to, 4)}
           </p>
         </div>
-        <ChevronRight className="h-4 w-4 text-white/20" />
+        <ChevronRight className="h-4 w-4 text-[#8c7760]/40" />
       </div>
     </a>
   );
@@ -308,12 +254,12 @@ function TransactionRow({
 
 function EmptyState({ hasTransactions }: { hasTransactions: boolean }) {
   return (
-    <div className="mt-6 rounded-xl bg-white/5 p-12 text-center">
-      <ArrowLeftRight className="mx-auto h-12 w-12 text-[#E5E7EB]" />
-      <p className="mt-4 text-base font-medium text-white">
-        No transactions found
-      </p>
-      <p className="mt-2 text-sm text-[#6B7280]">
+    <div className="mt-6 rounded-xl border border-[#efe3d0] bg-[#fffaf2] p-12 text-center">
+      <div className="mx-auto w-fit rounded-full bg-[#f3ecdf] p-4">
+        <ArrowLeftRight className="h-12 w-12 text-[#8c7760]" />
+      </div>
+      <p className="mt-4 text-base font-semibold text-[#102033]">No transactions found</p>
+      <p className="mt-2 text-sm text-[#637085]">
         {hasTransactions
           ? 'Try a different filter.'
           : 'Try a different filter or send your first payment.'}
