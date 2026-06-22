@@ -46,7 +46,10 @@ function sanitizeUrl(value: string): string {
 function parseTomlValue(rawValue: string): string {
   const trimmed = rawValue.trim();
 
-  if ((trimmed.startsWith('"') && trimmed.endsWith('"')) || (trimmed.startsWith("'") && trimmed.endsWith("'"))) {
+  if (
+    (trimmed.startsWith('"') && trimmed.endsWith('"')) ||
+    (trimmed.startsWith("'") && trimmed.endsWith("'"))
+  ) {
     return trimmed.slice(1, -1);
   }
 
